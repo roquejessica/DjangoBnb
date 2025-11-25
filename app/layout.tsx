@@ -39,7 +39,7 @@ export default function RootLayout({
           {children}
         </div>
 
-        <LoginModal />  //then pass it here this will not be rendered unless the open is set to true then import it in the UserNav
+        <LoginModal />  {/* then pass it here this will not be rendered unless the open is set to true then import it in the UserNav */}
         <SignupModal />
       </body>
     </html>
