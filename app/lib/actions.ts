@@ -10,7 +10,7 @@ export async function handleLogin(
     const cookieStore = await cookies();
 
     cookieStore.set('session_userid', userId, {
-        httpOnly: true,
+        httpOnly: false,
         secure: false,
         maxAge: 60 * 60 * 24 * 7, // One week
         path: '/',
@@ -29,4 +29,21 @@ export async function handleLogin(
         maxAge: 60 * 60 * 24 * 7, // One week
         path: '/',
     });
+}
+
+export async function resetAuthCookies(): Promise<void> {
+    const cookieStore = await cookies();
+
+    cookieStore.set('session_userid', '');
+    cookieStore.set('session_access_token', '');
+    cookieStore.set('session_refresh_token', '');
+}
+
+export async function getUserId() {
+  const cookieStore = await cookies();
+
+  const userIdCookie = await cookieStore.get('session_userid');
+
+  const userId = userIdCookie?.value ?? null;
+  return userId;
 }

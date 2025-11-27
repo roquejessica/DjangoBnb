@@ -22,6 +22,7 @@ const apiService = {
         })
     },
 
+    
     post: async function (url:string, data: any): Promise<any> {
         console.log('post', url, data);
 
