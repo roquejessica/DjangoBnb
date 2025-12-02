@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar"
 import Modal from "./components/modals/Modal"
 import LoginModal from "./components/modals/LoginModal"  //make the hook for the modal then import it in the layout
 import SignupModal from "./components/modals/SignupModal" 
+import AddPropertyModal from "./components/modals/AddPropertyModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
 
         <LoginModal />  {/* then pass it here this will not be rendered unless the open is set to true then import it in the UserNav */}
         <SignupModal />
+        <AddPropertyModal />
       </body>
     </html>
   );
