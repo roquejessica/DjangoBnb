@@ -1,0 +1,25 @@
+[33m78b0cc7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mtemp-save[m[33m)[m main@{2025-12-02 15:23:29 +0800}: commit: Add properties from nextjs (Create modal, API endpoint, Send data) - Jessica Roque - VID5
+[33m553e1cf[m main@{2025-11-27 17:54:23 +0800}: commit: Log out (Implement authentication) - Jessica Roque - VID4
+[33m6022f33[m main@{2025-11-27 11:42:32 +0800}: commit: Log in - Jessica Roque - VID4
+[33m5a972eb[m main@{2025-11-27 11:25:22 +0800}: commit: Sign up - Jessica Roque - VID4
+[33mb32a184[m main@{2025-11-27 08:52:53 +0800}: commit: Create api service file (And use it in the properties list) - Jessica Roque - VID4
+[33m0024a43[m main@{2025-11-25 17:17:21 +0800}: commit: Get properties in the front end and list them - Jessica Roque - VID3
+[33mfd6a352[m main@{2025-11-13 14:07:57 +0800}: commit: Sign up modal (remember error codes) - Jessica Roque - VID2
+[33m1791ae7[m main@{2025-11-13 13:35:16 +0800}: commit: Log in modal (remember error codes) - Jessica Roque - VID2
+[33m25c3ee8[m main@{2025-11-13 11:46:03 +0800}: commit: Create reusable modal window - Jessica Roque - VID2
+[33m3c571e5[m main@{2025-11-12 14:27:25 +0800}: commit (amend): User menu popup - Jessica Roque - VID2
+[33m1799844[m main@{2025-11-12 14:21:07 +0800}: commit: User menu popup - Jessica Roque - VID2
+[33m837cd41[m main@{2025-11-12 13:50:52 +0800}: commit: Detail page for chat (static) - Jessica Roque - VID2
+[33mcca98ec[m main@{2025-11-12 12:55:15 +0800}: commit: inbox page (static) - Jessica Roque - VID2
+[33mafa7991[m main@{2025-11-12 12:41:13 +0800}: commit (amend): My properties (static) - Jessica Roque - VID2
+[33ma74bd13[m main@{2025-11-12 12:40:13 +0800}: commit: My properties (static) - Jessica Roque - VID1
+[33mda00bfb[m main@{2025-11-10 04:34:24 +0800}: commit: My reservations (static) - Jessica Roque
+[33mf21db30[m main@{2025-11-10 04:31:43 +0800}: commit: Landlord Page (static) - Jessica Roque
+[33md4bf4fa[m main@{2025-11-10 04:24:24 +0800}: commit: Detail page for properties (static) - Jessica Roque
+[33md559636[m main@{2025-11-10 04:09:23 +0800}: commit: List properties fro the front page (static) - Jessica Roque
+[33m99345fb[m main@{2025-11-09 15:16:49 +0800}: commit: Categories on the front page (static) - Jessica Roque
+[33mea7c13e[m main@{2025-11-09 14:49:19 +0800}: commit: Code for nav bar - Jessica Roque
+[33m5352a67[m main@{2025-11-09 14:18:45 +0800}: commit (amend): install and set up Nextjs, create project - Jessica Roque
+[33mf337648[m main@{2025-11-09 13:07:12 +0800}: Branch: renamed refs/heads/master to refs/heads/main
+[33mf337648[m main@{2025-11-09 13:02:22 +0800}: commit: install and set up Nextjs, create project
+[33m3fbf05d[m main@{2025-11-08 21:15:33 +0800}: commit (initial): Initial commit from Create Next App
