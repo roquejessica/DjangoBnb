@@ -1,12 +1,12 @@
 import { getAccessToken } from "../lib/actions";
 
 const apiService = {
-    get: async function (url:string): Promise<any> {
+    get: async function (url: string): Promise<any> {
         console.log('get', url);
 
-        const token = await getAccessToken(); //this will either be an empty string or a token, if token, authorize in the backend
+        const token = await getAccessToken();
 
-        return new Promise((resolve, reject) =>{
+        return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'GET',
                 headers: {
@@ -26,7 +26,7 @@ const apiService = {
                 }))
         })
     },
-    
+
     post: async function(url: string, data: any): Promise<any> {
         console.log('post', url, data);
 
