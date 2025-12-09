@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Property
+from .models import Property, Reservation
+
 
 admin.site.register(Property)
-
-# Register your models here.
+admin.site.register(Reservation)
