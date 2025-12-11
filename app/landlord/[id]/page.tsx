@@ -23,7 +23,10 @@ const LandlordDetailPage = async ({params}: {params: Promise<{id: string}>}) => 
                         <h1 className="mt-6 text-2xl">{landlord.name}</h1>
 
                         {userId !== resolvedParams.id && (
-                            <ContactButton />
+                            <ContactButton
+                                userId={userId}
+                                landlordId={resolvedParams.id}
+                            />
                         )}
                         
                    </div>
