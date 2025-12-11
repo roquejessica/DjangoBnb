@@ -22,9 +22,9 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
 }) => {
     const messagesDiv = useRef<HTMLDivElement>(null);
     const [newMessage, setNewMessage] = useState('');
+    const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
     const myUser = conversation.users?.find((user) => user.id == userId)
     const otherUser = conversation.users?.find((user) => user.id != userId)
-    const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`, {
         share: false,
@@ -65,7 +65,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 event: 'chat_message',
                 data: {
                     body: newMessage,
-                    name: 'Jennie', //myUser?.name,
+                    name: myUser?.name,
                     sent_to_id: otherUser?.id,
                     conversation_id: conversation.id
                 }
@@ -93,6 +93,15 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({
                 ref={messagesDiv}
                 className="max-h-[400px] overflow-auto flex flex-col space-y-4"
             >
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`w-[80%]py-4 px-6 rounded-xl ${message.created_by.name == myUser?.name ? 'ml-[20%] bg-blue-200' : 'bg-gray-200'}`}
+                    >
+                        <p className="font-bold text-gray-500">{message.created_by.name}</p>
+                        <p>{message.body}</p>
+                    </div>
+                ))}
 
                 {realtimeMessages.map((message, index) => (
                     <div
