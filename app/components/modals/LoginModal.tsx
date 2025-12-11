@@ -15,24 +15,32 @@ const LoginModal = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<string[]>([]);
     
-
     const submitLogin = async () => {
         const formData = {
             email: email,
             password: password,
         }
 
-        const response = await apiService.postWithoutToken('/api/auth/login/', JSON.stringify(formData));
+        const response = await apiService.postWithoutToken('/api/auth/login/', formData);
+        console.log('Login response:', response);
+        
         if(response.access){
-                await handleLogin(response.user.pk, response.access, response.refresh);
+                handleLogin(response.user.pk, response.access, response.refresh);
+                
+                localStorage.setItem('session_userid', response.user.pk);
+                localStorage.setItem('session_access_token', response.access);
+                localStorage.setItem('session_refresh_token', response.refresh);
+                
+                console.log('Token stored in localStorage:', localStorage.getItem('session_access_token'));
 
                 loginModal.close();
                 router.push('/')
         } else {
+            console.log('Login failed, response:', response);
             setErrors(response.non_field_errors);
         }
     }
-    
+
     const content = (
         <>
             <form 
@@ -41,6 +49,7 @@ const LoginModal = () => {
             >
                 <input onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" type="email" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
                 <input onChange={(e) => setPassword(e.target.value)} placeholder="Your Password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
+
 
                 {errors.map((error, index) => {
                     return(
@@ -62,9 +71,9 @@ const LoginModal = () => {
     )
     return (
         <Modal
-            isOpen={loginModal.isOpen}  //takes the variable isOpen from useLoginModal then pass it to Modal window here
+            isOpen={loginModal.isOpen}
             close={loginModal.close}
-            label="Log in"
+            label="Login"
             content={content}
             
         />

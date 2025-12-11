@@ -2,50 +2,50 @@
 
 import { cookies } from 'next/headers';
 
-export async function handleLogin(
-    userId: string,
-    accessToken: string,
-    refreshToken: string
-) {
-    const cookieStore = await cookies();
+export async function handleLogin(userId: string, accessToken: string, refreshToken: string) {
+    try {
+        const cookieStore = await cookies();
+        const cookieOptions = {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 60 * 60 * 24 * 7,
+            path: '/',
+            sameSite: 'lax' as const
+        };
 
-    cookieStore.set('session_userid', userId, {
-        httpOnly: false,
-        secure: false,
-        maxAge: 60 * 60 * 24 * 7, // One week
-        path: '/',
-    });
-
-    cookieStore.set('session_access_token', accessToken, {
-        httpOnly: true,
-        secure: false,
-        maxAge: 60 * 60, // 60 minutes
-        path: '/',
-    });
-
-    cookieStore.set('session_refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: false,
-        maxAge: 60 * 60 * 24 * 7, // One week
-        path: '/',
-    });
+        cookieStore.set('session_userid', userId, cookieOptions);
+        cookieStore.set('session_access_token', accessToken, cookieOptions);
+        cookieStore.set('session_refresh_token', refreshToken, cookieOptions);
+    } catch (error) {
+        console.error('Error setting cookies:', error);
+    }
 }
 
-export async function resetAuthCookies(): Promise<void> {
+export async function resetAuthCookies() {
     const cookieStore = await cookies();
-
-    cookieStore.set('session_userid', '');
-    cookieStore.set('session_access_token', '');
-    cookieStore.set('session_refresh_token', '');
+    // Delete cookies by setting maxAge to 0
+    cookieStore.set('session_userid', '', { maxAge: 0, path: '/' });
+    cookieStore.set('session_access_token', '', { maxAge: 0, path: '/' });
+    cookieStore.set('session_refresh_token', '', { maxAge: 0, path: '/' });
 }
 
 export async function getUserId() {
-  const cookieStore = await cookies();
-
-  const userIdCookie = await cookieStore.get('session_userid');
-
-  const userId = userIdCookie?.value ?? null;
-  return userId;
+    if (typeof window === 'undefined') {
+        // Server-side
+        const cookieStore = await cookies();
+        return cookieStore.get('session_userid')?.value || null;
+    } else {
+        // Client-side
+        const value = document.cookie;
+        const parts = value.split('; session_userid=');
+        if (parts.length === 2) {
+            const part = parts.pop();
+            if (part) {
+                return part.split(';').shift() || null;
+            }
+        }
+        return null;
+    }
 }
 
 export async function getAccessToken() {
@@ -54,39 +54,51 @@ export async function getAccessToken() {
     return accessToken;
 }
 
+export async function getRefreshToken() {
+    let refreshToken = (await cookies()).get('session_refresh_token')?.value;
+
+    return refreshToken;
+}
+
+export async function handleJwtRefresh(accessToken: string, refreshToken: string) {
+    const cookieStore = await cookies();
+    const cookieOptions = {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+        sameSite: 'lax' as const
+    };
+
+    cookieStore.set('session_access_token', accessToken, cookieOptions);
+    cookieStore.set('session_refresh_token', refreshToken, cookieOptions);
+}
+
 export async function getConversations() {
     const accessToken = await getAccessToken();
-
-    console.log('Access token:', accessToken);
-
+    
     if (!accessToken) {
-        console.log('No access token found');
-        return null;
+        return [];
     }
 
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/chat/`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`,
+                'Accept': 'application/json',
             },
         });
 
-        console.log('Response status:', response.status);
-
         if (!response.ok) {
-            const errorText = await response.text();
-            console.log('Error response:', errorText);
-            return null;
+            console.error('Failed to fetch conversations:', response.status);
+            return [];
         }
 
-        const data = await response.json();
-        console.log('Conversations data:', data);
-        return data;
+        const conversations = await response.json();
+        return conversations;
     } catch (error) {
         console.error('Error fetching conversations:', error);
-        return null;
+        return [];
     }
 }
