@@ -18,7 +18,8 @@ const apiService = {
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'GET',
-                headers: headers
+                headers: headers,
+                credentials: 'include'
             })
                 .then(response => response.json())
                 .then((json) => {
@@ -47,7 +48,8 @@ const apiService = {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
                 body: data,
-                headers: headers
+                headers: headers,
+                credentials: 'include'
             })
                 .then(response => response.json())
                 .then((json) => {

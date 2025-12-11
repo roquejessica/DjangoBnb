@@ -53,3 +53,40 @@ export async function getAccessToken() {
 
     return accessToken;
 }
+
+export async function getConversations() {
+    const accessToken = await getAccessToken();
+
+    console.log('Access token:', accessToken);
+
+    if (!accessToken) {
+        console.log('No access token found');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/chat/`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
+
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.log('Error response:', errorText);
+            return null;
+        }
+
+        const data = await response.json();
+        console.log('Conversations data:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching conversations:', error);
+        return null;
+    }
+}
