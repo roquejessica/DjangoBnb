@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MenuLink from "./MenuLink";
 import useLoginModal from "../../hooks/useLoginModal";
-import useSignUpModal from "../../hooks/useSignUpModal";
+import useSignupModal from "../../hooks/useSignupModal";
 
 import LogoutButton from "../LogoutButton";
 
@@ -17,7 +17,7 @@ const UserNav: React.FC<UserNavProps> = (
 ) => {
     const router = useRouter();
     const loginModal = useLoginModal();
-    const signupModal = useSignUpModal();
+    const signupModal = useSignupModal();
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="p-2 relative inline-block border rounded-full">
@@ -40,6 +40,14 @@ const UserNav: React.FC<UserNavProps> = (
                                 onClick={() =>{
                                     setIsOpen(false);
                                     router.push(`/myproperties`);
+                                }}
+                            />
+
+                            <MenuLink
+                                label='My reservations'
+                                onClick={() =>{
+                                    setIsOpen(false);
+                                    router.push(`/myreservations`);
                                 }}
                             />
                             <LogoutButton />

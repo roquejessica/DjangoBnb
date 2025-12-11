@@ -6,14 +6,19 @@ const apiService = {
 
         const token = await getAccessToken();
 
+        const headers: any = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        };
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: headers
             })
                 .then(response => response.json())
                 .then((json) => {
@@ -32,13 +37,17 @@ const apiService = {
 
         const token = await getAccessToken();
 
+        const headers: any = {};
+
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
                 body: data,
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: headers
             })
                 .then(response => response.json())
                 .then((json) => {
