@@ -8,7 +8,7 @@ import Categories from '../addproperty/Categories';
 import CustomButton from '@/app/components/forms/CustomButton';
 
 import useAddPropertyModal from '@/app/hooks/useAddPropertyModal';
-import SelectCountry, {SelectCountryValue} from '../forms/SelectCountry';
+import SelectCountry, { SelectCountryValue } from '../forms/SelectCountry';
 
 import apiService from '@/app/services/apiService';
 import { useRouter } from 'next/navigation';
@@ -48,6 +48,20 @@ const AddPropertyModal = () => {
         }
     }
 
+    const resetForm = () => {
+        setCurrentStep(1);
+        setErrors([]);
+        setDataCategory('');
+        setDataTitle('');
+        setDataDescription('');
+        setDataPrice('');
+        setDataBedrooms('');
+        setDataBathrooms('');
+        setDataGuests('');
+        setDataCountry(undefined);
+        setDataImage(null);
+    }
+
     const submitForm = async () => {
         console.log('submitForm');
 
@@ -76,9 +90,11 @@ const AddPropertyModal = () => {
             if (response.success) {
                 console.log('SUCCESS :-D');
 
-                router.push('/');
+                router.push('/?added=true');
 
                 addPropertyModal.close();
+
+                resetForm();
             } else {
                 console.log('Error');
 
@@ -105,16 +121,16 @@ const AddPropertyModal = () => {
                         setCategory={(category) => setCategory(category)}
                     />
 
-                    <CustomButton 
-                        label = 'Next'
-                        onClick = {() => setCurrentStep(2)}
+                    <CustomButton
+                        label='Next'
+                        onClick={() => setCurrentStep(2)}
                     />
                 </>
             ) : currentStep == 2 ? (
                 <>
                     <h2 className='mb-6 text-2xl'>Describe your place</h2>
 
-                     <div className='pt-3 pb-6 space-y-4'>
+                    <div className='pt-3 pb-6 space-y-4'>
                         <div className='flex flex-col space-y-2'>
                             <label>Title</label>
                             <input
@@ -135,15 +151,15 @@ const AddPropertyModal = () => {
                         </div>
                     </div>
 
-                    <CustomButton 
-                        label = 'Previous'
-                        className = 'mb-2 bg-black hover:bg-gray-800'
-                        onClick = {() => setCurrentStep(1)}
+                    <CustomButton
+                        label='Previous'
+                        className='mb-2 bg-black hover:bg-gray-800'
+                        onClick={() => setCurrentStep(1)}
                     />
 
-                    <CustomButton 
-                        label = 'Next'
-                        onClick = {() => setCurrentStep(3)}
+                    <CustomButton
+                        label='Next'
+                        onClick={() => setCurrentStep(3)}
                     />
                 </>
             ) : currentStep == 3 ? (
@@ -203,12 +219,12 @@ const AddPropertyModal = () => {
                         onClick={() => setCurrentStep(4)}
                     />
                 </>
-             ) : currentStep == 4 ? (
+            ) : currentStep == 4 ? (
                 <>
                     <h2 className='mb-6 text-2xl'>Location</h2>
 
                     <div className='pt-3 pb-6 space-y-4'>
-                        <SelectCountry 
+                        <SelectCountry
                             value={dataCountry}
                             onChange={(value) => setDataCountry(value as SelectCountryValue)}
                         />
@@ -283,7 +299,7 @@ const AddPropertyModal = () => {
                 isOpen={addPropertyModal.isOpen}
                 close={addPropertyModal.close}
                 label="Add property"
-                content = {content}
+                content={content}
             />
         </>
     )

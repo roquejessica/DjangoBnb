@@ -14,12 +14,10 @@ const SignupModal = () => {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
-    const [name, setName] = useState('');
     const [errors, setErrors] = useState<string[]>([]);
 
     const submitSignup = async () => {
         const formData = {
-            name: name,
             email: email,
             password1: password1,
             password2: password2
@@ -27,13 +25,13 @@ const SignupModal = () => {
         try {
             const response = await apiService.postWithoutToken('/api/auth/register/', formData);
 
-            if(response.access){
+            if (response.access) {
                 handleLogin(response.user.pk, response.access, response.refresh);
 
                 signupModal.close();
                 router.push('/')
-            } else{
-                const tmpErrors: string[] = Object.values(response).map((error: any)=>{
+            } else {
+                const tmpErrors: string[] = Object.values(response).map((error: any) => {
                     if (Array.isArray(error)) {
                         return error[0];
                     }
@@ -49,25 +47,24 @@ const SignupModal = () => {
     const content = (
         <>
             <form className="space-y-4">
-                <input onChange={(e) => setName(e.target.value)} placeholder="Your name" type="text" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
-                <input onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" type="email" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
-                <input onChange={(e) => setPassword1(e.target.value)} placeholder="Your password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
-                <input onChange={(e) => setPassword2(e.target.value)} placeholder="Repeat password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
+                <input onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" type="email" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl" />
+                <input onChange={(e) => setPassword1(e.target.value)} placeholder="Your password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl" />
+                <input onChange={(e) => setPassword2(e.target.value)} placeholder="Repeat password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl" />
 
                 {errors.map((error, index) => {
                     return (
-                        <div 
+                        <div
                             key={`error_${index}`}
                             className="p-5 bg-airbnb text-white rounded-xl opacity-80"
                         >
                             {error}
                         </div>
                     )
-             })}
-                
+                })}
+
                 <CustomButton
                     label="Submit"
-                    onClick={submitSignup }
+                    onClick={submitSignup}
                 />
             </form>
         </>
@@ -78,7 +75,7 @@ const SignupModal = () => {
             close={signupModal.close}
             label="Sign up"
             content={content}
-            
+
         />
     )
 }
