@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image from 'next/image';
+
 interface CategoriesProps {
     dataCategory: string;
     setCategory: (category: string) => void;
@@ -10,10 +11,10 @@ const Categories: React.FC<CategoriesProps> = ({
 }) => {
     return (
         <>
-            <div className="pt-3 cursor-pointer pb-6 flex items-center space-x-12">
+            <div className="pt-3 cursor-pointer pb-6 flex item-center space-x-12">
                 <div
-                    onClick={() => setCategory('Beach')}
-                    className= {`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory== 'Beach' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100 transition`}
+                    onClick={() => setCategory('beach')}
+                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory == 'Beach' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}
                 >
                     <Image
                         src="/icn_category_beach.jpeg"
@@ -21,50 +22,50 @@ const Categories: React.FC<CategoriesProps> = ({
                         width={20}
                         height={20}
                     />
-    
-                    <span className="text-xs">Beach</span>
+
+                    <span className='text-xs'>Beach</span>
                 </div>
-    
+
                 <div
-                    onClick={() => setCategory('Villas')}
-                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory== 'Villas' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100 transition`}
+                    onClick={() => setCategory('villas')}
+                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory == 'Villas' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}
                 >
                     <Image
                         src="/icn_category_beach.jpeg"
-                        alt="Category - Villas"
+                        alt="Category - Beach"
                         width={20}
                         height={20}
                     />
-    
-                    <span className="text-xs">Villas</span>
+
+                    <span className='text-xs'>Villas</span>
                 </div>
-    
+
                 <div
-                    onClick={() => setCategory('Cabins')}
-                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory== 'Cabins' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100 transition`}
+                    onClick={() => setCategory('cabins')}
+                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory == 'Cabins' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}
                 >
                     <Image
                         src="/icn_category_beach.jpeg"
-                        alt="Category - Cabins"
+                        alt="Category - Beach"
                         width={20}
                         height={20}
                     />
-    
-                    <span className="text-xs">Cabins</span>
+
+                    <span className='text-xs'>Cabins</span>
                 </div>
-    
+
                 <div
-                    onClick={() => setCategory('Tiny Homes')}
-                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory== 'Tiny Homes' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100 transition`}
+                    onClick={() => setCategory('tiny_homes')}
+                    className={`pb-4 flex flex-col items-center space-y-2 border-b-2 ${dataCategory == 'Tiny homes' ? 'border-gray-800' : 'border-white'} opacity-60 hover:border-gray-200 hover:opacity-100`}
                 >
                     <Image
                         src="/icn_category_beach.jpeg"
-                        alt="Category - Tiny Homes"
+                        alt="Category - Beach"
                         width={20}
                         height={20}
                     />
-    
-                    <span className="text-xs">Tiny Homes</span>
+
+                    <span className='text-xs'>Tiny homes</span>
                 </div>
             </div>
         </>
