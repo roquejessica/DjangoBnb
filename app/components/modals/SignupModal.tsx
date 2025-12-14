@@ -14,16 +14,18 @@ const SignupModal = () => {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+    const [name, setName] = useState('');
     const [errors, setErrors] = useState<string[]>([]);
 
     const submitSignup = async () => {
         const formData = {
+            name: name,
             email: email,
             password1: password1,
             password2: password2
         }
         try {
-            const response = await apiService.postWithoutToken('/api/auth/register/', JSON.stringify(formData));
+            const response = await apiService.postWithoutToken('/api/auth/register/', formData);
 
             if(response.access){
                 handleLogin(response.user.pk, response.access, response.refresh);
@@ -47,6 +49,7 @@ const SignupModal = () => {
     const content = (
         <>
             <form className="space-y-4">
+                <input onChange={(e) => setName(e.target.value)} placeholder="Your name" type="text" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
                 <input onChange={(e) => setEmail(e.target.value)} placeholder="Your Email" type="email" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
                 <input onChange={(e) => setPassword1(e.target.value)} placeholder="Your password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>
                 <input onChange={(e) => setPassword2(e.target.value)} placeholder="Repeat password" type="password" className="w-full h-[54px] px-4 border border-gray-300 rounded-xl"/>

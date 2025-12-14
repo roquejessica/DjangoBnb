@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface AddPropertyModalStore{
+interface AddPropertyModalStore {
     isOpen: boolean;
     open: () => void;
     close: () => void;

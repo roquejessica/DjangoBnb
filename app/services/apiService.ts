@@ -211,7 +211,10 @@ const apiService = {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    return response.json().then(errorData => {
+                        console.error('Error response data:', errorData);
+                        throw new Error(`HTTP error! status: ${response.status}, details: ${JSON.stringify(errorData)}`);
+                    });
                 }
                 return response.json();
             })

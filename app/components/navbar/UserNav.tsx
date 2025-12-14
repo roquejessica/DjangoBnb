@@ -13,7 +13,7 @@ interface UserNavProps {
 }
 
 const UserNav: React.FC<UserNavProps> = ( 
-    userId 
+    {   userId } 
 ) => {
     const router = useRouter();
     const loginModal = useLoginModal();
